@@ -11,20 +11,21 @@ const filtrTodo = $('.filtr-todo')
 const filtrDone = $('.filtr-done')
 
 class Todo {
-  constructor(isDone, text, id) {
-    this.isDone = isDone
+  constructor(text) {
+    this.isDone = false
     this.text = text
-    this.id = id
   }
 
   createNewTodo(text) {
-    const todos = $('<li>', {
+    const todo = $('<li>', {
       class: 'todo__item',
       text,
       'data-id': uuidv4()
     })
 
-    return todos
+    this.ref = todo
+
+    return todo
   }
 
   addTodo() {
@@ -33,11 +34,12 @@ class Todo {
 
       return
     }
-
+   
     const newTodo = this.createNewTodo(inputText.val())
 
     newTodo.appendTo(todoList)
     this.createTodoControls(newTodo)
+    this.id = newTodo.attr('data-id')
 
     inputText.val(null)
   }
@@ -55,12 +57,19 @@ class Todo {
     $('<i>', { class: 'fa-solid fa-trash' })
       .appendTo(deleteButton)
 
-    deleteButton.click(event => {
+    this.deleteButton()
+    this.acceptedButton()
+
+  }
+  deleteButton() {
+    this.ref.click(event => {
       $(event.target)
         .closest('li')
         .remove()
     })
-    acceptedButton.click(event => {
+  }
+  acceptedButton() {
+    this.ref.click(event => {
       $(event.target)
         .closest('li')
         .addClass('checked')
@@ -71,11 +80,12 @@ class Todo {
 }
 
 buttonAddTodo.click(() => {
-  const todo = new Todo(false, inputText.val(), uuidv4())
+  const todo = new Todo(inputText.val())
   todo.addTodo()
+  console.log(todo)
 })
 
-const filters = () => {
+const filtersTodo = () => {
   filtrAll.click(() => {
     $('.todo__item').show(500)
   })
@@ -89,4 +99,4 @@ const filters = () => {
   })
 }
 
-filters()
+filtersTodo()
