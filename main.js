@@ -24,29 +24,22 @@ class Todo {
     })
 
     this.ref = todo
+    this.id = todo.attr('data-id')
 
-    return todo
-  }
-
-  addTodo() {
-    if (inputText.val() === '') {
+    if (text === '') {
       alert('Please write any text')
 
       return
     }
-   
-    const newTodo = this.createNewTodo(inputText.val())
 
-    newTodo.appendTo(todoList)
-    this.createTodoControls(newTodo)
-    this.id = newTodo.attr('data-id')
-
-    inputText.val(null)
+    todo.appendTo(todoList)
+    
+    this.createControlTodo(todo)
   }
 
-  createTodoControls(todoItem) {
+  createControlTodo(todo) {
     const allButton = $('<div>', { class: 'todo__item-all-button' })
-      .appendTo(todoItem)
+      .appendTo(todo)
     const acceptedButton = $('<button>', { class: 'todo__item-accepted' })
       .appendTo(allButton)
     const deleteButton = $('<button>', { class: 'todo__item-deleted' })
@@ -57,19 +50,22 @@ class Todo {
     $('<i>', { class: 'fa-solid fa-trash' })
       .appendTo(deleteButton)
 
-    this.deleteButton()
-    this.acceptedButton()
+    this.ref = deleteButton
+    this.ref = acceptedButton
 
+    this.deleteTodo(deleteButton)
+    this.acceptedTodo(acceptedButton)
   }
-  deleteButton() {
-    this.ref.click(event => {
+
+  deleteTodo(deleteButton) {
+    deleteButton.click(event => {
       $(event.target)
         .closest('li')
         .remove()
     })
   }
-  acceptedButton() {
-    this.ref.click(event => {
+  acceptedTodo(acceptedButton) {
+    acceptedButton.click(event => {
       $(event.target)
         .closest('li')
         .addClass('checked')
@@ -81,8 +77,9 @@ class Todo {
 
 buttonAddTodo.click(() => {
   const todo = new Todo(inputText.val())
-  todo.addTodo()
-  console.log(todo)
+  todo.createNewTodo(inputText.val())
+
+  inputText.val(null)
 })
 
 const filtersTodo = () => {
