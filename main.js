@@ -1,36 +1,58 @@
+import $ from 'jquery'
 import './style/style.sass'
 import './style/reset.css'
 import { Todo } from './Todo.js'
-import $ from 'jquery'
 
 const inputText = $('.input-text')
 const buttonAddTodo = $('.add-item')
+const todoList = $('.todo__list')
 const filtrAll = $('.filtr-all')
 const filtrTodo = $('.filtr-todo')
 const filtrDone = $('.filtr-done')
 
 buttonAddTodo.click(() => {
   const todo = new Todo(inputText.val())
-  todo.createNewTodo(inputText.val())
-console.log(todo)
+
+  const createTodo = todo.createNewTodo(inputText.val())
+    .appendTo(todoList)
+
+  const allButton = todo.createAllButton()
+    .appendTo(createTodo)
+
+  const acceptedButton = todo.createAcceptedBuuton()
+    .appendTo(allButton)
+
+  const deleteButton = todo.createDeleteButton()
+    .appendTo(allButton)
+
+  acceptedTodo(acceptedButton, todo)
+  deleteTodo(deleteButton)
+
   inputText.val(null)
 })
 
-export const deleteTodo = (deleteButton) => {
-  deleteButton.click(event => {
-    $(event.target)
-      .closest('li')
-      .remove()
-  })
-}
+const acceptedTodo = (acceptedButton, todo) => {
 
-export const acceptedTodo = (acceptedButton) => {
+  $('<i>', { class: 'fa-solid fa-check' })
+    .appendTo(acceptedButton)
+
   acceptedButton.click(event => {
     $(event.target)
       .closest('li')
       .addClass('checked')
 
-    Todo.isDone = true
+    todo.isDone = true
+  })
+}
+
+const deleteTodo = deleteButton => {
+  $('<i>', { class: 'fa-solid fa-trash' })
+    .appendTo(deleteButton)
+
+  deleteButton.click(event => {
+    $(event.target)
+      .closest('li')
+      .remove()
   })
 }
 
