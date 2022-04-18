@@ -18,26 +18,25 @@ buttonAddTodo.click(() => {
   }
 
   const todo = new Todo(inputText.val())
+  todo.createNewTodo().appendTo(todoList)
 
-  const createTodo = todo.createNewTodo(inputText.val())
-    .appendTo(todoList)
+  const acceptedButton = todo.getAcceptButton()
+  const deleteButton =  todo.getDeleteButton()
+  const isDone = todo.toggleIsDone()
 
-  const acceptedButton = createTodo.find($('.todo__item-accepted'))
-  const deleteButton = createTodo.find($('.todo__item-deleted'))
-
-  acceptedTodo(acceptedButton, todo)
+  acceptedTodo(acceptedButton, isDone)
   deleteTodo(deleteButton)
 
   inputText.val(null)
 })
 
-const acceptedTodo = (acceptedButton, todo) => {
+const acceptedTodo = (acceptedButton, isDone) => {
   acceptedButton.click(event => {
     $(event.target)
       .closest('li')
       .addClass('checked')
 
-    todo.isDone = true
+    isDone = true
   })
 }
 

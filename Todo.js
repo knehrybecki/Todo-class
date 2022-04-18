@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import { v4 as uuidv4 } from 'uuid'
+
 export class Todo {
   constructor(text) {
     this.isDone = false
@@ -7,28 +8,40 @@ export class Todo {
     this.id = uuidv4()
   }
 
-  createNewTodo(text) {
+  createNewTodo() {
     const todo = $('<li>', {
       class: 'todo__item',
-      text,
+      text: this.text,
       'data-id': this.id
     })
 
-    const allButton = $('<div>', { class: 'todo__item-all-button' })
+    this.allButton = $('<div>', { class: 'todo__item-all-button' })
       .appendTo(todo)
 
-    const acceptedButton = $('<button>', { class: 'todo__item-accepted' })
-      .appendTo(allButton)
+    return todo
+  }
 
-    const deleteButton = $('<button>', { class: 'todo__item-deleted' })
-      .appendTo(allButton)
+  getAcceptButton() {
+    this.acceptedButton = $('<button>', { class: 'todo__item-accepted' })
+      .appendTo(this.allButton)
 
     $('<i>', { class: 'fa-solid fa-check' })
-      .appendTo(acceptedButton)
+      .appendTo(this.acceptedButton)
+
+    return this.acceptedButton
+  }
+
+  getDeleteButton() {
+    this.deleteButton = $('<button>', { class: 'todo__item-deleted' })
+      .appendTo(this.allButton)
 
     $('<i>', { class: 'fa-solid fa-trash' })
-      .appendTo(deleteButton)
+      .appendTo(this.deleteButton)
 
-    return todo
+    return this.deleteButton
+  }
+
+  toggleIsDone() {
+    return this.isDone
   }
 }
