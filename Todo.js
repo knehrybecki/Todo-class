@@ -6,6 +6,7 @@ export class Todo {
     this.isDone = false
     this.text = text
     this.id = uuidv4()
+
   }
 
   createNewTodo() {
@@ -44,7 +45,7 @@ export class Todo {
     return this.deleteButton
   }
 
-  toggleIsDone() {
+  markDoneTodo() {
     if (this.isDone) {
       this.isDone = false
 
