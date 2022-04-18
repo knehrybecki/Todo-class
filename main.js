@@ -31,11 +31,20 @@ buttonAddTodo.click(() => {
 
 const acceptedTodo = (acceptedButton, todo) => {
   acceptedButton.click(event => {
-    $(event.target)
-      .closest('li')
-      .addClass('checked')
+    if ($(event.target).closest('li').hasClass('checked')) {
+      $(event.target)
+        .closest('li')
+        .removeClass('checked')
 
       todo.toggleIsDone()
+    }
+    else {
+      $(event.target)
+        .closest('li')
+        .addClass('checked')
+
+      todo.toggleIsDone()
+    }
   })
 }
 

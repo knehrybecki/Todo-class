@@ -42,6 +42,11 @@ export class Todo {
   }
 
   toggleIsDone() {
-    this.isDone = true
+    if (this.isDone === true) {
+      this.isDone = false
+    }
+    else {
+      this.isDone = true
+    }
   }
 }
