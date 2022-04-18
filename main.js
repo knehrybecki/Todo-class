@@ -22,21 +22,20 @@ buttonAddTodo.click(() => {
 
   const acceptedButton = todo.getAcceptButton()
   const deleteButton =  todo.getDeleteButton()
-  const isDone = todo.toggleIsDone()
 
-  acceptedTodo(acceptedButton, isDone)
+  acceptedTodo(acceptedButton, todo)
   deleteTodo(deleteButton)
 
   inputText.val(null)
 })
 
-const acceptedTodo = (acceptedButton, isDone) => {
+const acceptedTodo = (acceptedButton, todo) => {
   acceptedButton.click(event => {
     $(event.target)
       .closest('li')
       .addClass('checked')
 
-    isDone = true
+      todo.toggleIsDone()
   })
 }
 

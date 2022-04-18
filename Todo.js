@@ -42,6 +42,6 @@ export class Todo {
   }
 
   toggleIsDone() {
-    return this.isDone
+    this.isDone = true
   }
 }
