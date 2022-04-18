@@ -11,19 +11,19 @@ const filtrTodo = $('.filtr-todo')
 const filtrDone = $('.filtr-done')
 
 buttonAddTodo.click(() => {
+  if (inputText.val() === '') {
+    alert('Please write any text')
+
+    return
+  }
+
   const todo = new Todo(inputText.val())
 
   const createTodo = todo.createNewTodo(inputText.val())
     .appendTo(todoList)
 
-  const allButton = todo.createAllButton()
-    .appendTo(createTodo)
-
-  const acceptedButton = todo.createAcceptedBuuton()
-    .appendTo(allButton)
-
-  const deleteButton = todo.createDeleteButton()
-    .appendTo(allButton)
+  const acceptedButton = createTodo.find($('.todo__item-accepted'))
+  const deleteButton = createTodo.find($('.todo__item-deleted'))
 
   acceptedTodo(acceptedButton, todo)
   deleteTodo(deleteButton)
@@ -32,10 +32,6 @@ buttonAddTodo.click(() => {
 })
 
 const acceptedTodo = (acceptedButton, todo) => {
-
-  $('<i>', { class: 'fa-solid fa-check' })
-    .appendTo(acceptedButton)
-
   acceptedButton.click(event => {
     $(event.target)
       .closest('li')
@@ -46,9 +42,6 @@ const acceptedTodo = (acceptedButton, todo) => {
 }
 
 const deleteTodo = deleteButton => {
-  $('<i>', { class: 'fa-solid fa-trash' })
-    .appendTo(deleteButton)
-
   deleteButton.click(event => {
     $(event.target)
       .closest('li')

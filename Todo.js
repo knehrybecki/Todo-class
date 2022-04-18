@@ -1,6 +1,5 @@
 import $ from 'jquery'
 import { v4 as uuidv4 } from 'uuid'
-
 export class Todo {
   constructor(text) {
     this.isDone = false
@@ -15,32 +14,21 @@ export class Todo {
       'data-id': this.id
     })
 
-    this.id = todo.attr('data-id')
+    const allButton = $('<div>', { class: 'todo__item-all-button' })
+      .appendTo(todo)
 
-    if (text === '') {
-      alert('Please write any text')
+    const acceptedButton = $('<button>', { class: 'todo__item-accepted' })
+      .appendTo(allButton)
 
-      return
-    }
+    const deleteButton = $('<button>', { class: 'todo__item-deleted' })
+      .appendTo(allButton)
+
+    $('<i>', { class: 'fa-solid fa-check' })
+      .appendTo(acceptedButton)
+
+    $('<i>', { class: 'fa-solid fa-trash' })
+      .appendTo(deleteButton)
+
     return todo
   }
-
-  createAllButton() {
-    const allButton = $('<div>', { class: 'todo__item-all-button' })
-
-    return allButton
-  }
-
-  createDeleteButton() {
-    const deleteButton = $('<button>', { class: 'todo__item-deleted' })
-
-    return deleteButton
-
-  }
-  createAcceptedBuuton() {
-    const acceptedButton = $('<button>', { class: 'todo__item-accepted' })
-
-    return acceptedButton
-  }
 }
-  
