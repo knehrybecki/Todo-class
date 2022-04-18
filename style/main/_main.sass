@@ -47,15 +47,16 @@
         background-color: $color-item
         @include displayflex(row,center,space-between)
 
-    &__item-accepted
-        padding-right: 10px
-        height: 100%
-
     &__item-all
         padding-left: 5px
 
 .fa-solid.fa-check
     color: $check-color
+    padding: 7px
+
+.fa-solid.fa-xmark
+    color: $del-color
+    padding: 7px
 
 .fa-solid.fa-trash
     color: $del-color

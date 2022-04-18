@@ -36,12 +36,16 @@ const acceptedTodo = (acceptedButton, todo) => {
         .closest('li')
         .removeClass('checked')
 
+      $(event.target).remove()
+
       todo.toggleIsDone()
     }
     else {
       $(event.target)
         .closest('li')
         .addClass('checked')
+
+      $(event.target).remove()
 
       todo.toggleIsDone()
     }
