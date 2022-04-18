@@ -31,24 +31,23 @@ buttonAddTodo.click(() => {
 
 const acceptedTodo = (acceptedButton, todo) => {
   acceptedButton.click(event => {
-    if ($(event.target).closest('li').hasClass('checked')) {
+    if (todo.isDone) {
       $(event.target)
         .closest('li')
         .removeClass('checked')
 
-      $(event.target).remove()
+      todo.unCheck.remove()
 
-      todo.toggleIsDone()
+      return todo.toggleIsDone().appendTo(todo.acceptedButton)
     }
-    else {
-      $(event.target)
-        .closest('li')
-        .addClass('checked')
 
-      $(event.target).remove()
+    $(event.target)
+      .closest('li')
+      .addClass('checked')
 
-      todo.toggleIsDone()
-    }
+    todo.check.remove()
+
+    todo.toggleIsDone().appendTo(todo.acceptedButton)
   })
 }
 

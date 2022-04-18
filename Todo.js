@@ -29,6 +29,8 @@ export class Todo {
     this.check = $('<i>', { class: 'fa-solid fa-check' })
       .appendTo(this.acceptedButton)
 
+    this.unCheck = $('<i>', { class: "fa-solid fa-xmark" })
+
     return this.acceptedButton
   }
 
@@ -43,17 +45,15 @@ export class Todo {
   }
 
   toggleIsDone() {
-    if (this.isDone === true) {
+    if (this.isDone) {
       this.isDone = false
 
-      this.check.appendTo(this.acceptedButton)
-
+      return this.check
     }
-    else {
-      this.isDone = true
 
-      $('<i>', { class: "fa-solid fa-xmark" })
-        .appendTo(this.acceptedButton)
-    }
+    this.isDone = true
+
+    return this.unCheck
   }
 }
+  
