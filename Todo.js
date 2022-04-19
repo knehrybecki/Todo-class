@@ -6,7 +6,6 @@ export class Todo {
     this.isDone = false
     this.text = text
     this.id = uuidv4()
-
   }
 
   createNewTodo() {
@@ -25,7 +24,6 @@ export class Todo {
   getAcceptButton() {
     this.acceptedButton = $('<button>', { class: 'todo__item-accepted' })
       .appendTo(this.allButton)
-
 
     this.check = $('<i>', { class: 'fa-solid fa-check' })
       .appendTo(this.acceptedButton)
@@ -57,4 +55,3 @@ export class Todo {
     return this.unCheck
   }
 }
-  

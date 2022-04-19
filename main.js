@@ -2,7 +2,6 @@ import $ from 'jquery'
 import './style/style.sass'
 import './style/reset.css'
 import { Todo } from './Todo.js'
-import { TodoArray } from './TodoArray'
 
 const inputText = $('.input-text')
 const buttonAddTodo = $('.add-item')
@@ -11,6 +10,7 @@ const filterAll = $('.filter-all')
 const filterTodo = $('.filter-todo')
 const filterDone = $('.filter-done')
 
+let todoArray = []
 
 buttonAddTodo.click(() => {
   if (inputText.val() === '') {
@@ -20,23 +20,23 @@ buttonAddTodo.click(() => {
   }
 
   const todo = new Todo(inputText.val())
-  const todoArray = new TodoArray()
 
-  todoArray.addingTodoInArray(todo)
   todo.createNewTodo().appendTo(todoList)
-
+  
+  todoArray = todoArray.concat(todo)
+  
   const acceptedButton = todo.getAcceptButton()
-  const deleteButton =  todo.getDeleteButton()
+  const deleteButton = todo.getDeleteButton()
 
   acceptedTodo(acceptedButton, todo)
-  deleteTodo(deleteButton, todoArray, todo)
+  deleteTodo(deleteButton, todo)
 
   inputText.val(null)
 })
 
 const acceptedTodo = (acceptedButton, todo) => {
   acceptedButton.click(event => {
-    if (todo.isDone) {
+    if (todo.isDone) {  
       $(event.target)
         .closest('li')
         .removeClass('checked')
@@ -45,6 +45,10 @@ const acceptedTodo = (acceptedButton, todo) => {
 
       return todo.markDoneTodo().appendTo(todo.acceptedButton)
     }
+
+    const index = todoArray.findIndex(item => item.id === todo.id)
+
+    todoArray[index].isDone = todo.isDone
 
     $(event.target)
       .closest('li')
@@ -56,15 +60,17 @@ const acceptedTodo = (acceptedButton, todo) => {
   })
 }
 
-const deleteTodo = (deleteButton, todoArray, todo) => {
+const deleteTodo = (deleteButton, todo) => {
   deleteButton.click(event => {
     $(event.target)
       .closest('li')
       .remove()
 
-    const index = todoArray.array.findIndex(item => item.id === todo.id)
+    const index = todoArray.findIndex(item => item.id === todo.id)
 
-    todoArray.deleteTodoInArray(index)
+    delete todoArray[index]
+
+    todoArray = todoArray.filter(item => item !== 'undefined')
   })
 }
 
