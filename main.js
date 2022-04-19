@@ -22,9 +22,9 @@ buttonAddTodo.click(() => {
   const todo = new Todo(inputText.val())
 
   todo.createNewTodo().appendTo(todoList)
-  
+
   todoArray = todoArray.concat(todo)
-  
+
   const acceptedButton = todo.getAcceptButton()
   const deleteButton = todo.getDeleteButton()
 
@@ -36,7 +36,7 @@ buttonAddTodo.click(() => {
 
 const acceptedTodo = (acceptedButton, todo) => {
   acceptedButton.click(event => {
-    if (todo.isDone) {  
+    if (todo.isDone) {
       $(event.target)
         .closest('li')
         .removeClass('checked')
@@ -66,11 +66,13 @@ const deleteTodo = (deleteButton, todo) => {
       .closest('li')
       .remove()
 
-    const index = todoArray.findIndex(item => item.id === todo.id)
+    todo.getIdToRemoveTodoInArray()
 
-    delete todoArray[index]
+    const idTodo = $(event.target)
+      .closest('li')
+      .attr('data-id')
 
-    todoArray = todoArray.filter(item => item !== 'undefined')
+    todoArray = todoArray.filter(item => item.id !== idTodo)
   })
 }
 

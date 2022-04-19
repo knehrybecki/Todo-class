@@ -2,17 +2,21 @@ import $ from 'jquery'
 import { v4 as uuidv4 } from 'uuid'
 
 export class Todo {
+  #isDone
+  #text
+  #id
+
   constructor(text) {
-    this.isDone = false
-    this.text = text
-    this.id = uuidv4()
+    this.#isDone = false
+    this.#text = text
+    this.#id = uuidv4()
   }
 
   createNewTodo() {
     const todo = $('<li>', {
       class: 'todo__item',
-      text: this.text,
-      'data-id': this.id
+      text: this.#text,
+      'data-id': this.#id
     })
 
     this.allButton = $('<div>', { class: 'todo__item-all-button' })
@@ -53,5 +57,9 @@ export class Todo {
     this.isDone = true
 
     return this.unCheck
+  }
+
+  getIdToRemoveTodoInArray() {
+   this.id = this.#id
   }
 }
