@@ -19,31 +19,34 @@ export class Todo {
       'data-id': this.#id
     })
 
-    this.allButton = $('<div>', { class: 'todo__item-all-button' })
-      .appendTo(todo)
-
     return todo
   }
 
-  getAcceptButton() {
+  controlButton() {
+    this.allButton = $('<div>', { class: 'todo__item-all-button' })
+
     this.acceptedButton = $('<button>', { class: 'todo__item-accepted' })
       .appendTo(this.allButton)
 
     this.check = $('<i>', { class: 'fa-solid fa-check' })
       .appendTo(this.acceptedButton)
 
-    this.unCheck = $('<i>', { class: "fa-solid fa-xmark" })
+    this.unCheck = $('<i>', { class: 'fa-solid fa-xmark' })
 
-    return this.acceptedButton
-  }
-
-  getDeleteButton() {
     this.deleteButton = $('<button>', { class: 'todo__item-deleted' })
       .appendTo(this.allButton)
 
     $('<i>', { class: 'fa-solid fa-trash' })
       .appendTo(this.deleteButton)
 
+    return this.allButton
+  }
+
+  getAcceptButton() {
+    return this.acceptedButton
+  }
+
+  getDeleteButton() {
     return this.deleteButton
   }
 

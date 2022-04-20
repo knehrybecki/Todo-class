@@ -12,7 +12,6 @@ const filterDone = $('.filter-done')
 
 let todoArray = []
 
-
 buttonAddTodo.click(() => {
   if (inputText.val() === '') {
     alert('Please write any text')
@@ -22,7 +21,9 @@ buttonAddTodo.click(() => {
 
   const todo = new Todo(inputText.val())
 
-  todo.createNewTodo().appendTo(todoList)
+  const createTodo = todo.createNewTodo().appendTo(todoList)
+
+  todo.controlButton().appendTo(createTodo)
 
   todoArray = todoArray.concat(todo)
 
