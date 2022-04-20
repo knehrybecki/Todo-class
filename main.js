@@ -12,6 +12,7 @@ const filterDone = $('.filter-done')
 
 let todoArray = []
 
+
 buttonAddTodo.click(() => {
   if (inputText.val() === '') {
     alert('Please write any text')
@@ -46,10 +47,6 @@ const acceptedTodo = (acceptedButton, todo) => {
       return todo.markDoneTodo().appendTo(todo.acceptedButton)
     }
 
-    const index = todoArray.findIndex(item => item.id === todo.id)
-
-    todoArray[index].isDone = todo.isDone
-
     $(event.target)
       .closest('li')
       .addClass('checked')
@@ -66,13 +63,9 @@ const deleteTodo = (deleteButton, todo) => {
       .closest('li')
       .remove()
 
-    todo.getIdToRemoveTodoInArray()
+    const getId = todo.getId()
 
-    const idTodo = $(event.target)
-      .closest('li')
-      .attr('data-id')
-
-    todoArray = todoArray.filter(item => item.id !== idTodo)
+    todoArray = todoArray.filter(item => item.getId() !== getId)
   })
 }
 

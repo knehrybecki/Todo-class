@@ -59,7 +59,8 @@ export class Todo {
     return this.unCheck
   }
 
-  getIdToRemoveTodoInArray() {
-   this.id = this.#id
+  getId() {
+    return this.#id
   }
 }
+  
